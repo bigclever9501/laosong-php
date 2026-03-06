@@ -1,0 +1,55 @@
+# ================= 系统文件 =================
+.DS_Store
+Thumbs.db
+
+# ================= Node =================
+node_modules
+/dist
+
+# ================= Composer =================
+/vendor/
+
+# ================= 环境变量 =================
+.env
+.env.*.local
+.env.backup
+
+# ================= 日志 =================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+php_error.log
+error_log
+
+# ================= IDE =================
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ================= 用户上传 =================
+uploads/
+public/uploads/
+storage/uploads/
+
+# ================= 数据库 =================
+*.sql
+*.sqlite
+*.db
+
+# ================= Laravel（如果使用） =================
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/views/
+/storage/framework/testing/
+/storage/logs/
+/bootstrap/cache/
+/public/storage
+
+# ================= 其他 =================
+composer.phar

@@ -1,0 +1,334 @@
+.flexcspa {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.flexc {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.flexcspb {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.headlongimg {
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+	background-position: center;
+}
+
+.bgcolorwhite {
+	background-color: #ffffff;
+}
+
+.bgcolor {
+	background-color: #fafafa;
+}
+
+.fs12 {
+	font-size: 12px;
+}
+
+.fs16 {
+	font-size: 16px;
+}
+
+.fs18 {
+	font-size: 18px;
+}
+
+.fs24 {
+	font-size: 24px;
+}
+
+.fs30 {
+	font-size: 30px;
+}
+.mt-20{
+    margin-top: 20px;
+}
+.mt-30{
+    margin-top: 30px;
+}
+.mt-40{
+    margin-top: 40px;
+}
+.ml-40{
+    margin-left: 40px;
+}
+.mr-40{
+    margin-right: 40px;
+}
+.desctextcolor {
+	color: #7d88a2;
+}
+
+.midcontent {
+	width: 1200px;
+	margin: auto;
+}
+
+.hide1 {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.paddingpc {
+	padding: 50px 0;
+}
+
+.center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.flex {
+	display: flex;
+	/* justify-content: center; */
+	align-items: center;
+}
+
+/*解决方案*/
+
+.solution-page-box-header {
+	margin-top: 70px;
+	background-color:#273643 !important;
+	width: 100%;
+	min-width: 1280px;
+	height: 480px;
+	box-sizing: border-box;
+	overflow: hidden;
+	background-size: cover !important;
+
+}
+
+.solution-page-box-header-box {
+	width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+}
+
+.solution-page-box-header-left-box {
+	color: #fff;
+}
+
+.solution-page-box-header-left-box-title {
+	font-size: 30px;
+	font-weight: 600;
+}
+
+.solution-page-box-header-left-box-desc {
+	width: 500px;
+	max-width: 500px;
+	margin-top: 40px;
+	margin-bottom: 60px;
+	font-size: 18px;
+	line-height: 36px;
+}
+
+.solution-btn{
+    cursor: pointer;
+    display: block;
+    width: 144px;
+    height: 44px;
+    line-height: 44px;
+    background: var(--color);
+    border-radius: 22px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFF;
+    text-align: center;
+}
+.solution-style-1 ul {
+	margin-top: 40px;
+	display: grid;
+    grid-template-columns: repeat(6, 183px);
+    grid-gap: 20px;
+}
+
+.solution-style-1 ul li {
+	width: 183px;
+	/*height: 269px;*/
+	background: #fff;
+	padding: 40px 0;
+	box-sizing: border-box;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+.solution-style-1 ul li img {
+	width: 66px;
+	height: 66px;
+}
+
+.solution-style-1 li .card-title {
+	margin: 30px 0 10px;
+	font-size: 22px;
+	font-weight: 600;
+	color: #14212F;
+}
+
+.solution-style-1 ul li .card-content {
+	width: 183px;
+	height: 56px;
+	font-size: 16px;
+	font-weight: 400;
+	color: #566473;
+	line-height: 28px;
+	text-align: center;
+}
+
+.solution-style-1 ul li:hover {
+	box-shadow: 2px 2px 24px 6px rgba(128, 95, 77, 0.06);
+	transform: translateY(-10px);
+}
+
+/*解决方案样式二*/
+.solution-style-2{
+    width: 1200px;
+    margin: auto;
+    display: flex;
+}
+.solution-style-2 .img-content{
+    height: 600px;
+    width: 55%;
+}
+.solution-style-2 .img-content img{
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    
+}
+.solution-style-2 .text-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.solution-style-2 .text-content .solution-title{
+    font-size: 30px;
+    font-weight: 500;
+}
+.solution-style-2 ul li{
+    font-size: 18px;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+.solution-style-2 ul li .circle{
+    width: 8px;
+    height: 8px;
+    background: var(--color);
+    border-radius: 50%;
+    flex: none;
+    margin-top: 14px;
+    position: relative;
+}
+.solution-style-2 ul li .circle::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background: var(--color3);
+    border-radius: 50%;
+}
+.solution-style-2 ul li .text{
+    margin-left: 10px;
+}
+
+/*解决方案移动端适配*/
+@media screen and (max-width: 768px),
+	screen and (max-width:1200px) {
+    .solution-page-box-header{
+        margin-top: 50px;
+    }
+	.solution-page-box-header-box{
+	    width: 100%;
+	    height: 100%;
+	    padding: 0 20px;
+	}
+	.solution-page-box-header-right-box{
+	    display: none;
+	}
+	.solution-page-box-header-left-box-desc{
+	    width: calc(100vw - 40px);
+	}
+	.solution-page-box .midcontent{
+	    width: auto;
+	}
+	.solution-style-1 ul {
+        grid-template-columns: repeat(2, 183px);
+    }
+    .solution-style-2{
+        flex-direction: column;
+    }
+    .solution-style-2 .img-content{
+        height: auto !important;
+        width: 100% !important;
+    }
+    .solution-style-2 .ml-40{
+        margin-left: 0;
+    }
+    .solution-style-2-img-right{
+        flex-direction: column-reverse !important;
+    }
+    .solution-style-3 ul{
+        grid-template-columns: repeat(1, 265px) !important;
+    }
+}
+.solution-style-3 .title,.solution-style-3 .title_content{
+    color: #fff !important;
+}
+.solution-style-3 .card-box-bg{
+    background: #fff;
+    padding: 40px;
+    width: 1200px;
+    border-radius: 6px;
+}
+.solution-style-3 ul{
+    display: grid;
+    grid-template-columns: repeat(4, 265px);
+    grid-gap: 40px 20px;
+}
+.solution-style-3 ul li{
+    display: flex;
+    align-items: flex-start;
+    transition: all 0.3s;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.solution-style-3 ul li:hover{
+    box-shadow: 2px 2px 24px 6px rgba(128, 95, 77, 0.06);
+	transform: translateY(-10px);
+}
+.solution-style-3 ul li img{
+    width: 40px;
+    height: 40px;
+}
+.solution-style-3 ul li div{
+    margin-left: 10px;
+}
+.solution-style-3 ul li p{
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+.solution-style-3 ul li span{
+    font-size: 14px;
+    color: #888;
+}
+
+
