@@ -17,7 +17,7 @@ class submitController extends Controller
         }
 
         // 可以加上对 size 的验证 (wan2.6-t2i 支持自由尺寸，这里列几个常见的)
-        if(!empty($r['size']) && !in_array($r['size'], ['1280*1280', '1104*1472', '1472*1104', '960*1696', '1696*960'])){
+        if (!empty($r['size']) && !in_array($r['size'], ['1280*1280', '1104*1472', '1472*1104', '960*1696', '1696*960'])) {
             return $this->result(400, '不支持的图片尺寸', '');
         }
 
@@ -26,7 +26,7 @@ class submitController extends Controller
             return $this->result(400, '鉴权失败', '');
         }
         $Authorization = $r->header('Authorization');
-        
+
         $user = DB::table('users')->where('api_key', $Authorization)->first();
         if (empty($user)) {
             return $this->result(400, 'API_KEY错误', '');
@@ -39,7 +39,12 @@ class submitController extends Controller
         }
 
         // 4. 准备请求阿里云万相的参数
-        $api_key = env('ALIYUN_DASHSCOPE_KEY'); 
+        $apiConfig = (array)DB::table('api_config')->first();
+        $api_key = $apiConfig['aliyun_api_key'] ?? '';
+
+        if (empty($api_key)) {
+            return $this->result(500, '系统未配置阿里云密钥', '');
+        }
         if (empty($api_key)) {
             return $this->result(500, '系统未配置阿里云密钥', '');
         }
@@ -60,7 +65,7 @@ class submitController extends Controller
                 ]
             ],
             'parameters' => [
-                'size' => $r['size'] ?? '1280*1280', 
+                'size' => $r['size'] ?? '1280*1280',
                 'n' => 1,
                 'watermark' => false
             ]
@@ -95,7 +100,7 @@ class submitController extends Controller
                 'user_id'         => $user['id'],
                 'user_input_json' => json_encode($r->post(), 320),
                 'task_id'         => $task_id,
-                'task_status'     => 0, 
+                'task_status'     => 0,
                 'consume_point'   => $price,
                 'model'           => 'wan2.6-t2i', // 更新这里
                 'prompt'          => $r['prompt'],
