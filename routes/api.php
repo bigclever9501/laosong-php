@@ -24,6 +24,7 @@ Route::post('/nanobanana/submit', 'app\nanobanana\submitController@index');//Nan
 Route::get('/nanobanana/detail', 'app\nanobanana\detailController@index');//Nano Banana 查询接口
 
 Route::post('/grok/submit', 'app\grok\submitController@index');//grok生视频接口
+Route::get('/grok/detail', 'app\grok\detailController@index');//grok从数据库查询结果
 
 Route::post('/site/config', 'site\common\configController@index');//全局
 Route::post('/site/login', 'site\login\loginController@index');//登录注册

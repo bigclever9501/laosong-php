@@ -5,7 +5,6 @@ namespace App\Http\Controllers\app\grok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Log;
 
 class submitController extends Controller
 {
@@ -54,10 +53,10 @@ class submitController extends Controller
 
         // 允许的时长
         $allowDurations = [6, 10, 15];
-        $duration = (int)($r['duration'] ?? 5);
+        $duration = (int)($r['duration'] ?? 6);
 
         if (!in_array($duration, $allowDurations)) {
-            return $this->result(400, 'duration 只允许传 5、10、15', '');
+            return $this->result(400, 'duration 只允许传 6、10、15', '');
         }
 
         // 允许的画幅比例
@@ -77,6 +76,7 @@ class submitController extends Controller
         if (!in_array($preset, $allowPresets)) {
             return $this->result(400, 'preset 参数错误，只允许 fun、normal、spicy、custom', '');
         }
+        
         // 普通模型限制：只允许 480p + 6秒
         if ($r['model'] != 'grok-imagine-1.0-video-super') {
             if ($resolution == '720p' || in_array($duration, [10, 15])) {
@@ -189,6 +189,7 @@ class submitController extends Controller
 
             // 风格预设，使用前面校验后的值
             'preset'          => $preset,
+
             // 分辨率
             'resolution_name' => $resolution
         ];
@@ -268,11 +269,7 @@ class submitController extends Controller
                 ]);
             });
 
-            return $this->result(500, '上游接口返回异常，HTTP状态码：' . $httpCode, [
-                'http_code' => $httpCode,
-                'upstream_response' => $response,
-                'request_data' => $data
-            ]);
+            return $this->result(500, '上游接口返回异常，HTTP状态码：' . $httpCode, '');
         }
 
         curl_close($ch);
@@ -285,9 +282,6 @@ class submitController extends Controller
 
         // 用来保存最终视频地址
         $videoUrl = '';
-
-        // 用来保存解析出来的所有片段，方便后续排查问题
-        $allChunks = [];
 
         foreach ($lines as $line) {
             $line = trim($line);
@@ -309,8 +303,6 @@ class submitController extends Controller
             $json = json_decode($payload, true);
 
             if (!empty($json)) {
-                $allChunks[] = $json;
-
                 // 按照 SSE 常见结构，去取 delta.content
                 $content = $json['choices'][0]['delta']['content'] ?? '';
 
@@ -346,6 +338,7 @@ class submitController extends Controller
 
             // 返回给前端
             return $this->result(200, 'success', [
+                // 返回本地任务ID，前端后续可用于调用 /grok/detail 查询状态
                 'id'    => $localTaskId,
                 'state' => 'succeeded',
                 'data'  => $videoUrl
