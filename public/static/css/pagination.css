@@ -1,0 +1,39 @@
+.pagination {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        }
+.pagination a {
+    text-decoration: none;
+	color:  var(--color) !important;
+}
+
+.pagination a, .pagination span {
+    display: flex;
+    margin-right: 10px;
+	width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    transition: 0.2s;
+}
+
+.pagination .current {
+    background: var(--color);
+    color: #fff;
+ 
+}
+.prev,.next{
+    display: block;
+    width: 40px !important;
+    text-align: center;
+    white-space: nowrap;
+}
+.pagination .current.prev, .pagination .current.next{
+	color:#999;
+	background:#fff;
+    border: none;
+}
