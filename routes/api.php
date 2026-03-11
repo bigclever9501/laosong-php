@@ -15,11 +15,15 @@ use Illuminate\Http\Request;
 
 
 Route::post('/sora2/submit', 'app\sora2\submitControlle@index');//sora生图接口
-Route::post('/wanxiang/submit', 'app\wanxiang\submitController@index');// 万相2.6 生图接口
-Route::post('/nanobanana/submit', 'app\nanobanana\submitController@index');//Nano Banana 生图接口
 Route::get('/sora2/detail', 'app\sora2\detailController@index');//sora查询接口
+
 Route::get('/wanxiang/detail', 'app\wanxiang\detailController@index');//wanxiang查询接口
+Route::post('/wanxiang/submit', 'app\wanxiang\submitController@index');// 万相2.6 生图接口
+
+Route::post('/nanobanana/submit', 'app\nanobanana\submitController@index');//Nano Banana 生图接口
 Route::get('/nanobanana/detail', 'app\nanobanana\detailController@index');//Nano Banana 查询接口
+
+Route::post('/grok/submit', 'app\grok\submitController@index');//grok生视频接口
 
 Route::post('/site/config', 'site\common\configController@index');//全局
 Route::post('/site/login', 'site\login\loginController@index');//登录注册
@@ -34,10 +38,11 @@ Route::group(['middleware' => ['CheckSiteLogin']], function () {
     Route::post('/site/updateUserInfo', 'site\user\userController@updateUserInfo');//修改资料
     Route::post('/site/submitRechargeOrder', 'site\recharge\orderController@submitRechargeOrder');//提交充值订单
     Route::post('/site/getOrderStatus', 'site\recharge\orderController@getOrderStatus');//获取订单支付状态
+    Route::post('/site/getUserRechargeList', 'site\user\rechargeContrller@index');//充值记录
     Route::post('/site/getSoraList', 'site\user\soraContrller@index');//sora 历史列表
     Route::post('/site/getWanxiangList', 'site\user\wanxiangController@index');// 万相历史列表：给 Vue 前端用
     Route::post('/site/getNanobananaList', 'site\user\nanobananaController@index');//Nano Banana 历史列表：给 Vue 前端用
-    Route::post('/site/getUserRechargeList', 'site\user\rechargeContrller@index');//充值记录
+    
     
 });
 
