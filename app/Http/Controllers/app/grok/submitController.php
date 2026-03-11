@@ -76,7 +76,7 @@ class submitController extends Controller
         if (!in_array($preset, $allowPresets)) {
             return $this->result(400, 'preset 参数错误，只允许 fun、normal、spicy、custom', '');
         }
-        
+
         // 普通模型限制：只允许 480p + 6秒
         if ($r['model'] != 'grok-imagine-1.0-video-super') {
             if ($resolution == '720p' || in_array($duration, [10, 15])) {
@@ -269,7 +269,10 @@ class submitController extends Controller
                 ]);
             });
 
-            return $this->result(500, '上游接口返回异常，HTTP状态码：' . $httpCode, '');
+            return $this->result(500, '上游接口返回异常，HTTP状态码：' . $httpCode, [
+                'http_code' => $httpCode,
+                'upstream_response' => $response
+            ]);
         }
 
         curl_close($ch);
