@@ -12,7 +12,9 @@ use Illuminate\Http\Request;
 |
 */
 
-
+Route::post('/site/config', 'site\common\configController@index');//全局
+Route::post('/site/login', 'site\login\loginController@index');//登录注册
+Route::post('/site/sendCode', 'site\login\loginController@sendCode');//发送验证码
 
 Route::post('/sora2/submit', 'app\sora2\submitControlle@index');//sora生图接口
 Route::get('/sora2/detail', 'app\sora2\detailController@index');//sora查询接口
@@ -26,9 +28,9 @@ Route::get('/nanobanana/detail', 'app\nanobanana\detailController@index');//Nano
 Route::post('/grok/submit', 'app\grok\submitController@index');//grok生视频接口
 Route::get('/grok/detail', 'app\grok\detailController@index');//grok从数据库查询结果
 
-Route::post('/site/config', 'site\common\configController@index');//全局
-Route::post('/site/login', 'site\login\loginController@index');//登录注册
-Route::post('/site/sendCode', 'site\login\loginController@sendCode');//发送验证码
+Route::post('/veo/submit', 'app\veo\submitController@index'); // veo 提交任务
+Route::get('/veo/detail', 'app\veo\detailController@index'); // veo 查询任务结果
+
 
 // 登录后才可以访问的接口
 Route::group(['middleware' => ['CheckSiteLogin']], function () {
@@ -43,7 +45,8 @@ Route::group(['middleware' => ['CheckSiteLogin']], function () {
     Route::post('/site/getSoraList', 'site\user\soraContrller@index');//sora 历史列表
     Route::post('/site/getWanxiangList', 'site\user\wanxiangController@index');// 万相历史列表：给 Vue 前端用
     Route::post('/site/getNanobananaList', 'site\user\nanobananaController@index');//Nano Banana 历史列表：给 Vue 前端用
-    
+    Route::post('/site/getGrokList', 'site\user\grokController@index'); // Grok 历史列表
+    Route::post('/site/getVeoList', 'site\user\veoController@index'); // veo 历史列表
     
 });
 
