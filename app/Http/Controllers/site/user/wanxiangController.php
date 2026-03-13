@@ -38,8 +38,35 @@ class wanxiangController extends Controller
         // 5. 数据加工：把干巴巴的时间戳，用你们的 Tool 工具翻译成人话
         if ($res['list']) {
             foreach ($res['list'] as &$v) {
+                // 如果任务正在处理中，查询上游接口
+                if ($v['task_status'] == 0) {
+                    $url = 'https://api.your-service.com/task/' . $v['task_id']; // 替换为真实的上游接口地址
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $url);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+                    $response = curl_exec($ch);
+                    curl_close($ch);
+
+                    if ($response !== false) {
+                        $result = json_decode($response, true);
+                        if ($result['status'] == 'completed') {
+                            // 上游任务已完成，更新任务的完成时间
+                            DB::table('users_create_log')
+                                ->where('id', $v['id'])
+                                ->update([
+                                    'task_status'  => 1,  // 更新为已完成
+                                    'completion_time' => now(),  // 记录当前时间为完成时间
+                                    'res_url'      => $result['video_url'] ?? $result['url'],  // 获取视频链接
+                                ]);
+                        }
+                    }
+                }
+
+                // 转换时间戳为可读格式
                 $v['create_time'] = Tool::time($v['create_time']);
                 $v['handle_time'] = $v['handle_time'] ? Tool::time($v['handle_time']) : '';
+                $v['completion_time'] = $v['completion_time'] ? Tool::time($v['completion_time']) : '';  // 新增完成时间
             }
         }
 

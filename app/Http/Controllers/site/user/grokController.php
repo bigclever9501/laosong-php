@@ -65,7 +65,43 @@ class grokController extends Controller
             ->get();
 
         // =========================
-        // 4. 返回给前端
+        // 4. 检查是否需要更新任务的完成时间
+        // =========================
+
+        foreach ($list as $task) {
+            // 如果任务处于处理中，去查询上游的状态
+            if ($task->task_status == 0) {
+                // 调用上游 API 获取任务状态
+                $url = 'https://api.your-service.com/task/' . $task->task_id; // 替换为真实的上游接口地址
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+                $response = curl_exec($ch);
+                curl_close($ch);
+
+                if ($response === false) {
+                    continue;
+                }
+
+                $result = json_decode($response, true);
+
+                if ($result['status'] == 'completed') {
+                    // 上游任务已完成，更新任务的完成时间
+                    DB::table('users_create_log')
+                        ->where('id', $task->id)
+                        ->update([
+                            'task_status'  => 1,  // 更新为已完成
+                            'completion_time' => now(),  // 记录当前时间为完成时间
+                            'res_url'      => $result['video_url'] ?? $result['url'],  // 获取视频链接
+                        ]);
+                }
+            }
+        }
+
+        // =========================
+        // 5. 返回给前端
         // =========================
 
         return $this->result(2, '成功', [
